@@ -5,7 +5,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { View, TextInput, Button, Text } from 'react-native';
 import TodoItem from '@/components/ToDoItem';
 
 interface Task {
@@ -41,6 +41,9 @@ export default function HomeScreen() {
     );
   }
 
+  const completedTasks = tasks.filter((task: Task) => task.completed);
+  const incompleteTasks = tasks.filter((task: Task) => !task.completed);
+
   return (
         <View>
       <TextInput
@@ -50,14 +53,35 @@ export default function HomeScreen() {
         onChangeText={setText}
       />
       <Button title="Add Task" onPress={addTask} />
-      {tasks.map((task: Task) => (
-        <TodoItem
-          key={task.id}
-          task={task}
-          deleteTask={deleteTask}
-          toggleCompleted={toggleCompleted}
-        />
-      ))}
+
+      {incompleteTasks.length > 0 && (
+        <>
+          <Text>Incomplete Tasks</Text>
+          {incompleteTasks.map((task: Task) => (
+            <TodoItem
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              toggleCompleted={toggleCompleted}
+            />
+          ))}
+        </>
+      )}
+
+      {completedTasks.length > 0 && (
+        <>
+          <Text>Completed Tasks</Text>
+          {completedTasks.map((task: Task) => (
+            <TodoItem
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              toggleCompleted={toggleCompleted}
+            />
+          ))}
+        </>
+      )}
+
     </View>
   );
 }
