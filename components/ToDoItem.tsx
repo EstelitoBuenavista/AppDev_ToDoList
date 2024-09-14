@@ -16,6 +16,9 @@ export default function TodoItem(props: { task: Task; deleteTask: (id: number) =
   return (
     <View>
       <CheckBox
+      title="Click Here"
+      checked={task.completed}
+      onPress={() => toggleCompleted(task.id)}
       />
       <Text style={{ textDecorationLine: task.completed ? 'line-through' : 'none' }}>
         {task.text}
