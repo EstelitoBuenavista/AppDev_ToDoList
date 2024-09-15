@@ -11,9 +11,9 @@ interface Task {
   completed: boolean;
 }
 
-  export default function TodoItem(props: { task: Task; deleteTask: (id: number) => void; toggleCompleted: (id: number) => void}){
-  const { task, deleteTask, toggleCompleted} = props;
-  const [text, onChangeText] = React.useState(task.text);
+  export default function TodoItem(props: { task: Task; deleteTask: (id: number) => void; toggleCompleted: (id: number) => void; editTaskText: (id: number, textEdited: string) => void}){
+  const { task, deleteTask, toggleCompleted, editTaskText} = props;
+  //const [text, onChangeText] = React.useState(task.text);
 
   return (
     <View style={{flexDirection:'row'}}>
@@ -22,7 +22,7 @@ interface Task {
       checked={task.completed}
       onPress={() => toggleCompleted(task.id)}
       />
-      <TextInput onChangeText={onChangeText} value={text} style={{textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
+      <TextInput onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
         
       </TextInput>
       <View style={{flex:1}}>

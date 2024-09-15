@@ -16,7 +16,7 @@ interface Task {
 
 export default function HomeScreen() {
   const [tasks, setTasks] = useState<Task[]>([]);
-
+  const [newText, setNewText] = useState<string>("");
   const [text, setText] = useState<string>('');
 
   function addTask(): void {
@@ -41,6 +41,16 @@ export default function HomeScreen() {
     );
   }
 
+  function editTaskText(id: number, textEdited: string): void{
+    setTasks(tasks.map((task: Task)=>{
+        if(task.id === id){
+          task.text = textEdited
+        }
+        return task
+      })
+    )
+  }
+
   const completedTasks = tasks.filter((task: Task) => task.completed);
   const incompleteTasks = tasks.filter((task: Task) => !task.completed);
 
@@ -63,6 +73,7 @@ export default function HomeScreen() {
               task={task}
               deleteTask={deleteTask}
               toggleCompleted={toggleCompleted}
+              editTaskText={editTaskText}
             />
           ))}
         </>
@@ -77,6 +88,7 @@ export default function HomeScreen() {
               task={task}
               deleteTask={deleteTask}
               toggleCompleted={toggleCompleted}
+              editTaskText={editTaskText}
             />
           ))}
         </>
