@@ -77,38 +77,10 @@ export default function HomeScreen() {
           />
           <Button title="Add Task" onPress={addTask} /> */}
       
-      <Text>Incomplete Tasks</Text>
-      {incompleteTasks.length > 0 && (
-        <>
-          {incompleteTasks.map((task: Task) => (
-            <TodoItem
-              key={task.id}
-              task={task}
-              deleteTask={deleteTask}
-              toggleCompleted={toggleCompleted}
-              editTaskText={editTaskText}
-            />
-          ))}
-        </>
-      )}
-        <Pressable style={{flexDirection:"row"}} onPress={addTask}>
-            
-            <Text style={{flex:1, textAlign:'center', verticalAlign:'middle',fontSize:18}}> + </Text>
-            <Text style={{flex:11, fontSize:18}}>List item</Text>
-          
-
-        </Pressable>
-
-        {completedTasks.length > 0 && incompleteTasks.length > 0 && (<Divider style={{backgroundColor:"#b8b9ba", marginVertical:"2%"}}></Divider>)}
-
-      <TouchableOpacity onPress={showCompleted}>
-        <Text> {completedTasks.length + " Completed Tasks"}</Text>
-      </TouchableOpacity>
-      {completedTasks.length > 0 && show &&(
+          <Text style={{fontSize:18, paddingBottom:8}}>Incomplete Tasks</Text>
+          {incompleteTasks.length > 0 && (
             <>
-              
-              <Text style={{fontSize:18}}>Completed Tasks</Text>
-              {completedTasks.map((task: Task) => (
+              {incompleteTasks.map((task: Task) => (
                 <TodoItem
                   key={task.id}
                   task={task}
@@ -120,6 +92,31 @@ export default function HomeScreen() {
             </>
           )}
 
+          <Pressable style={{flexDirection:"row"}} onPress={addTask}>
+            <Text style={{flex:1, textAlign:'center', verticalAlign:'middle',fontSize:18}}> + </Text>
+            <Text style={{flex:11, fontSize:18}}>List item</Text>
+          </Pressable>
+
+          {/* {completedTasks.length > 0 && incompleteTasks.length > 0 && (<Divider style={{backgroundColor:"#b8b9ba", marginVertical:"2%"}}></Divider>)} */}
+          <View style={{paddingVertical:16}}></View>
+
+          <TouchableOpacity onPress={showCompleted}>
+            <Text style={{fontSize: 18}}> {completedTasks.length + " Completed Tasks"}</Text>
+          </TouchableOpacity>
+
+          {completedTasks.length > 0 && show &&(
+                <>
+                  {completedTasks.map((task: Task) => (
+                    <TodoItem
+                      key={task.id}
+                      task={task}
+                      deleteTask={deleteTask}
+                      toggleCompleted={toggleCompleted}
+                      editTaskText={editTaskText}
+                    />
+                  ))}
+                </>
+              )}
         </View>
       </ScrollView>
     </GestureHandlerRootView>
