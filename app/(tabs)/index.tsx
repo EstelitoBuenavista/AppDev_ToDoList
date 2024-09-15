@@ -4,7 +4,7 @@ import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, Button, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
 import TodoItem from '@/components/ToDoItem';
 import { Appearance, useColorScheme } from 'react-native';
 import { Divider } from 'react-native-elements';
@@ -22,6 +22,7 @@ export default function HomeScreen() {
     text: "",
     completed: false,
   }]);
+  const [show, setShow] = useState<boolean>(true);
   const [newText, setNewText] = useState<string>("");
   const [text, setText] = useState<string>('');
 
@@ -57,6 +58,10 @@ export default function HomeScreen() {
     )
   }
 
+  const showCompleted = (event: GestureResponderEvent) => {
+    setShow(!show)
+  };
+
   const completedTasks = tasks.filter((task: Task) => task.completed);
   const incompleteTasks = tasks.filter((task: Task) => !task.completed);
 
@@ -71,32 +76,35 @@ export default function HomeScreen() {
             onChangeText={setText}
           />
           <Button title="Add Task" onPress={addTask} /> */}
-
-          {incompleteTasks.length > 0 && (
-            <>
-              <Text style={{fontSize:18}}>Incomplete Tasks</Text>
-              {incompleteTasks.map((task: Task) => (
-                <TodoItem
-                  key={task.id}
-                  task={task}
-                  deleteTask={deleteTask}
-                  toggleCompleted={toggleCompleted}
-                  editTaskText={editTaskText}
-                />
-              ))}
-            </>
-          )}
-          <Pressable style={{flexDirection:"row"}} onPress={addTask}>
+      
+      <Text>Incomplete Tasks</Text>
+      {incompleteTasks.length > 0 && (
+        <>
+          {incompleteTasks.map((task: Task) => (
+            <TodoItem
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              toggleCompleted={toggleCompleted}
+              editTaskText={editTaskText}
+            />
+          ))}
+        </>
+      )}
+        <Pressable style={{flexDirection:"row"}} onPress={addTask}>
             
-              <Text style={{flex:1, textAlign:'center', verticalAlign:'middle',fontSize:18}}> + </Text>
-              <Text style={{flex:11, fontSize:18}}>List item</Text>
-            
+            <Text style={{flex:1, textAlign:'center', verticalAlign:'middle',fontSize:18}}> + </Text>
+            <Text style={{flex:11, fontSize:18}}>List item</Text>
+          
 
-          </Pressable>
+        </Pressable>
 
-          {completedTasks.length > 0 && incompleteTasks.length > 0 && (<Divider style={{backgroundColor:"#b8b9ba", marginVertical:"2%"}}></Divider>)}
+        {completedTasks.length > 0 && incompleteTasks.length > 0 && (<Divider style={{backgroundColor:"#b8b9ba", marginVertical:"2%"}}></Divider>)}
 
-          {completedTasks.length > 0 && (
+      <TouchableOpacity onPress={showCompleted}>
+        <Text> {completedTasks.length + " Completed Tasks"}</Text>
+      </TouchableOpacity>
+      {completedTasks.length > 0 && show &&(
             <>
               
               <Text style={{fontSize:18}}>Completed Tasks</Text>
