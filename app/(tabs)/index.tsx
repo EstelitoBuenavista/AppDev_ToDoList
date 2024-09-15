@@ -4,49 +4,85 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button, Text } from 'react-native';
+import TodoItem from '@/components/ToDoItem';
+
+interface Task {
+  id: number;
+  text: string;
+  completed: boolean;
+}
 
 export default function HomeScreen() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [text, setText] = useState<string>('');
+
+  function addTask(): void {
+    const newTask: Task = {
+      id: Date.now(),
+      text,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+    setText('');
+  }
+
+  function deleteTask(id: number): void {
+    setTasks(tasks.filter((task: Task) => task.id !== id));
+  }
+
+  function toggleCompleted(id: number): void {
+    setTasks(
+      tasks.map((task: Task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  }
+
+  const completedTasks = tasks.filter((task: Task) => task.completed);
+  const incompleteTasks = tasks.filter((task: Task) => !task.completed);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <View>
+      <TextInput
+        style={{ padding: 10, borderWidth: 1 }}
+        placeholder="Enter a task"
+        value={text}
+        onChangeText={setText}
+      />
+      <Button title="Add Task" onPress={addTask} />
+
+      {incompleteTasks.length > 0 && (
+        <>
+          <Text>Incomplete Tasks</Text>
+          {incompleteTasks.map((task: Task) => (
+            <TodoItem
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              toggleCompleted={toggleCompleted}
+            />
+          ))}
+        </>
+      )}
+
+      {completedTasks.length > 0 && (
+        <>
+          <Text>Completed Tasks</Text>
+          {completedTasks.map((task: Task) => (
+            <TodoItem
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              toggleCompleted={toggleCompleted}
+            />
+          ))}
+        </>
+      )}
+
+    </View>
   );
 }
 
