@@ -5,7 +5,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, Button, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
 import TodoItem from '@/components/ToDoItem';
 
 interface Task {
@@ -16,7 +16,7 @@ interface Task {
 
 export default function HomeScreen() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [newText, setNewText] = useState<string>("");
+  const [show, setShow] = useState<boolean>(true);
   const [text, setText] = useState<string>('');
 
   function addTask(): void {
@@ -51,6 +51,10 @@ export default function HomeScreen() {
     )
   }
 
+  const showCompleted = (event: GestureResponderEvent) => {
+    setShow(!show)
+  };
+
   const completedTasks = tasks.filter((task: Task) => task.completed);
   const incompleteTasks = tasks.filter((task: Task) => !task.completed);
 
@@ -65,9 +69,10 @@ export default function HomeScreen() {
       />
       <Button title="Add Task" onPress={addTask} />
 
+      <View style={{ padding: 16 }} >
+      <Text>Incomplete Tasks</Text>
       {incompleteTasks.length > 0 && (
         <>
-          <Text>Incomplete Tasks</Text>
           {incompleteTasks.map((task: Task) => (
             <TodoItem
               key={task.id}
@@ -79,10 +84,11 @@ export default function HomeScreen() {
           ))}
         </>
       )}
-
-      {completedTasks.length > 0 && (
+      <TouchableOpacity onPress={showCompleted}>
+      <Text> {completedTasks.length + " Completed Tasks"}</Text>
+      </TouchableOpacity>
+      {completedTasks.length > 0 && show && (
         <>
-          <Text>Completed Tasks</Text>
           {completedTasks.map((task: Task) => (
             <TodoItem
               key={task.id}
@@ -94,7 +100,7 @@ export default function HomeScreen() {
           ))}
         </>
       )}
-
+      </View>
     </View>
     </GestureHandlerRootView>
   );
