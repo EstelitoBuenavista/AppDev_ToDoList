@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import { TextInput } from 'react-native-gesture-handler';
 
 // Interface for Task object
 interface Task {
@@ -10,8 +11,9 @@ interface Task {
   completed: boolean;
 }
 
-export default function TodoItem(props: { task: Task; deleteTask: (id: number) => void; toggleCompleted: (id: number) => void }){
-  const { task, deleteTask, toggleCompleted } = props;
+  export default function TodoItem(props: { task: Task; deleteTask: (id: number) => void; toggleCompleted: (id: number) => void}){
+  const { task, deleteTask, toggleCompleted} = props;
+  const [text, onChangeText] = React.useState(task.text);
 
   return (
     <View style={{flexDirection:'row'}}>
@@ -20,9 +22,9 @@ export default function TodoItem(props: { task: Task; deleteTask: (id: number) =
       checked={task.completed}
       onPress={() => toggleCompleted(task.id)}
       />
-      <Text style={{textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
-        {task.text}
-      </Text>
+      <TextInput onChangeText={onChangeText} value={text} style={{textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
+        
+      </TextInput>
       <View style={{flex:1}}>
         <Button  title="X" onPress={() => deleteTask(task.id)} />
       </View>
