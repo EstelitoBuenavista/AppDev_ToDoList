@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Platform } from 'react-native';
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -55,6 +55,7 @@ export default function HomeScreen() {
   const incompleteTasks = tasks.filter((task: Task) => !task.completed);
 
   return (
+    <GestureHandlerRootView>
     <View>
       <TextInput
         style={{ padding: 10, borderWidth: 1 }}
@@ -95,6 +96,7 @@ export default function HomeScreen() {
       )}
 
     </View>
+    </GestureHandlerRootView>
   );
 }
 
