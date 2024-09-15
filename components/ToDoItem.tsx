@@ -14,16 +14,19 @@ export default function TodoItem(props: { task: Task; deleteTask: (id: number) =
   const { task, deleteTask, toggleCompleted } = props;
 
   return (
-    <View>
-      <CheckBox
-      title="Click Here"
+    <View style={{flexDirection:'row'}}>
+      <CheckBox style={{flex: 1}}
+      //title="Click Here"
       checked={task.completed}
       onPress={() => toggleCompleted(task.id)}
       />
-      <Text style={{ textDecorationLine: task.completed ? 'line-through' : 'none' }}>
+      <Text style={{textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
         {task.text}
       </Text>
-      <Button title="X" onPress={() => deleteTask(task.id)} />
+      <View style={{flex:1}}>
+        <Button  title="X" onPress={() => deleteTask(task.id)} />
+      </View>
+      
     </View>
   );
 }
