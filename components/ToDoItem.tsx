@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { TextInput } from 'react-native-gesture-handler';
+import { blue } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 
 // Interface for Task object
 interface Task {
@@ -22,11 +23,11 @@ interface Task {
       checked={task.completed}
       onPress={() => toggleCompleted(task.id)}
       />
-      <TextInput onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
+      <TextInput onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{fontSize:18,textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
         
       </TextInput>
       <View style={{flex:1}}>
-        <Button  title="X" onPress={() => deleteTask(task.id)} />
+        <Button title="X" onPress={() => deleteTask(task.id)} />
       </View>
       
     </View>
