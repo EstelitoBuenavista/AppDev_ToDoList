@@ -45,7 +45,7 @@ export default function HomeScreen() {
   const incompleteTasks = tasks.filter((task: Task) => !task.completed);
 
   return (
-        <View>
+    <View>
       <TextInput
         style={{ padding: 10, borderWidth: 1 }}
         placeholder="Enter a task"
