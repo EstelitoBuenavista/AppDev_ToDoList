@@ -24,7 +24,6 @@ interface Task {
       onPress={() => toggleCompleted(task.id)}
       />
       <TextInput onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{fontSize:18,textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
-        
       </TextInput>
       <View style={{flex:1}}>
         <Button title="X" onPress={() => deleteTask(task.id)} />
