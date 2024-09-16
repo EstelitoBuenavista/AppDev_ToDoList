@@ -17,7 +17,7 @@ interface Task {
   //const [text, onChangeText] = React.useState(task.text);
 
   return (
-    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection:'row', marginVertical:'2%'}}>
       <CheckBox style={{flex: 1}}
       //title="Click Here"
       checked={task.completed}
