@@ -117,8 +117,8 @@ export default function HomeScreen() {
           )}
 
           <Pressable style={{flexDirection:"row"}} onPress={addTask}>
-            <Text style={{flex:1, textAlign:'center', verticalAlign:'middle',fontSize:18}}> + </Text>
-            <Text style={{flex:11, fontSize:18}}>List item</Text>
+            <Text style={{color:"#adacac", paddingLeft: "5%",flex:1, textAlign:'center', verticalAlign:'middle',fontSize:27}}> + </Text>
+            <Text style={{color:"#adacac",verticalAlign:'middle', paddingLeft:"2%",flex:11, fontSize:20}}>List item</Text>
           </Pressable>
 
           {/* {completedTasks.length > 0 && incompleteTasks.length > 0 && (<Divider style={{backgroundColor:"#b8b9ba", marginVertical:"2%"}}></Divider>)} */}
