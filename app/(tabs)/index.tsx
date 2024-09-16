@@ -93,13 +93,16 @@ export default function HomeScreen() {
           <Button title="Add Task" onPress={addTask} /> */}
           <Text style={{fontSize:26, paddingBottom:8, textAlignVertical:'center'}}>To Do List</Text>
 
-          <View style={{flexDirection: 'row', alignItems: 'center', marginBottom:10}}>
-          <View style={{flex:1}}>
-            <Text style={{fontSize:18, paddingBottom:8, textAlignVertical:'center'}}>Incomplete Tasks</Text>
-          </View>
-            <View style={{justifyContent: "flex-end"}}>
-              <Button title="Finish" onPress={completeAll}/>
+          <View style={{flexDirection: 'row', alignItems: 'center', marginVertical:10}}>
+            <View style={{flex:1}}>
+              <Text style={{fontSize:18, paddingBottom:8, textAlignVertical:'center'}}>Incomplete Tasks</Text>
             </View>
+            {/* <View style={{justifyContent: "flex-end"}}>
+              <Button title="Finish" onPress={completeAll}/>
+            </View> */}
+            <Pressable style={{justifyContent: "flex-end"}} onPress={completeAll}>
+              <Text style={{color:'#3ea2fa' ,verticalAlign:'middle', fontSize:18, paddingBottom:8}}>Finish</Text>
+            </Pressable>
           </View>
           {incompleteTasks.length > 0 && (
             <>
@@ -124,15 +127,18 @@ export default function HomeScreen() {
           {/* {completedTasks.length > 0 && incompleteTasks.length > 0 && (<Divider style={{backgroundColor:"#b8b9ba", marginVertical:"2%"}}></Divider>)} */}
           <View style={{paddingVertical:16}}></View>
 
-          <View style={{flexDirection:"row", marginBottom:10}}>
-          <View style={{flex:1}}>
-            <TouchableOpacity onPress={showCompleted}>
-              <Text style={{fontSize: 18, paddingBottom:8, textAlignVertical:'center'}}> {completedTasks.length + " Completed Tasks"}</Text>
-            </TouchableOpacity>
-          </View>
-            <View style={{justifyContent: "flex-end"}}>
-              <Button title="Redo" onPress={incompleteAll}/>
+          <View style={{flexDirection:"row", marginBottom:10, alignItems:'center'}}>
+            <View style={{flex:1}}>
+              <TouchableOpacity onPress={showCompleted}>
+                <Text style={{fontSize: 18, paddingBottom:8, textAlignVertical:'center'}}> {completedTasks.length + " Completed Tasks"}</Text>
+              </TouchableOpacity>
             </View>
+            {/* <View style={{justifyContent: "flex-end"}}>
+              <Button title="Redo" onPress={incompleteAll}/>
+            </View> */}
+            <Pressable style={{justifyContent: "flex-end"}} onPress={incompleteAll}>
+              <Text style={{color: '#3ea2fa',verticalAlign:'middle', fontSize:18, paddingBottom:8}}> Redo </Text>
+            </Pressable>
           </View>
 
           {completedTasks.length > 0 && show &&(
