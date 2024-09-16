@@ -1,6 +1,6 @@
 // components/TodoItem.js
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Pressable } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { TextInput } from 'react-native-gesture-handler';
 import { blue } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
@@ -29,9 +29,12 @@ const toDoItem = forwardRef<TextInput, { task: Task; deleteTask: (id: number) =>
         </TextInput>
       
 
-      <View style={{flex:1, marginLeft: '3%'}}>
+      {/* <View style={{flex:1, marginLeft: '3%'}}>
         <Button title="X" onPress={() => deleteTask(task.id)} />
-      </View>
+      </View> */}
+      <Pressable style={{flex:1, marginLeft: '3%'}} onPress={() => deleteTask(task.id)}>
+        <Text style={{color:'#fc9381', verticalAlign:'middle', fontSize: 25, marginTop:'32%'}}> x</Text>
+      </Pressable>
       
     </View>
   );
