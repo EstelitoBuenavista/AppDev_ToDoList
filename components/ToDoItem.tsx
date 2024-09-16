@@ -24,7 +24,7 @@ interface Task {
       onPress={() => toggleCompleted(task.id)}
       />
       
-        <TextInput multiline={true} onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{ paddingRight:'2%',fontSize:18, verticalAlign:'middle', flex:10,textDecorationLine: task.completed ? 'line-through' : 'none' }}>
+        <TextInput multiline={true} scrollEnabled={false}  onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{ paddingRight:'2%',fontSize:18, verticalAlign:'middle', flex:10,textDecorationLine: task.completed ? 'line-through' : 'none' }}>
         </TextInput>
       
 
