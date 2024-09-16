@@ -1,13 +1,12 @@
-import { Image, StyleSheet, Platform, Pressable } from 'react-native';
+import { Image, StyleSheet, Platform, Pressable, FlatList } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
 import TodoItem from '@/components/ToDoItem';
 import { Appearance, useColorScheme } from 'react-native';
-import { Divider } from 'react-native-elements';
 import { CheckBox, Button } from 'react-native-elements';
 
 interface Task {
@@ -27,6 +26,8 @@ export default function HomeScreen() {
   const [text, setText] = useState<string>('');
   const [complete, setComplete] = useState<boolean>(true);
   const [incomplete, setIncomplete] = useState<boolean>(true);
+  const inputRefs = useRef<{ [key: string]: TextInput | null }>({});
+
 
   function addTask(): void {
     const newTask: Task = {
@@ -35,6 +36,10 @@ export default function HomeScreen() {
       completed: false,
     };
     setTasks([...tasks, newTask]);
+    setTimeout(() => {
+      // Focus on the new task's input
+      inputRefs.current[newTask.id]?.focus();
+    }, 100);
     setText('');
   }
 
@@ -105,6 +110,7 @@ export default function HomeScreen() {
                   deleteTask={deleteTask}
                   toggleCompleted={toggleCompleted}
                   editTaskText={editTaskText}
+                  ref={(input) => (inputRefs.current[task.id] = input)}
                 />
               ))}
             </>
@@ -138,6 +144,7 @@ export default function HomeScreen() {
                       deleteTask={deleteTask}
                       toggleCompleted={toggleCompleted}
                       editTaskText={editTaskText}
+                      ref={(input) => (inputRefs.current[task.id] = input)}
                     />
                   ))}
                 </>

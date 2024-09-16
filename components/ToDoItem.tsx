@@ -4,6 +4,7 @@ import { View, Text, Button } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { TextInput } from 'react-native-gesture-handler';
 import { blue } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
+import { forwardRef } from 'react';
 
 // Interface for Task object
 interface Task {
@@ -12,7 +13,7 @@ interface Task {
   completed: boolean;
 }
 
-  export default function TodoItem(props: { task: Task; deleteTask: (id: number) => void; toggleCompleted: (id: number) => void; editTaskText: (id: number, textEdited: string) => void}){
+const toDoItem = forwardRef<TextInput, { task: Task; deleteTask: (id: number) => void; toggleCompleted: (id: number) => void; editTaskText: (id: number, textEdited: string) => void; }>(function TodoItem(props, ref){
   const { task, deleteTask, toggleCompleted, editTaskText} = props;
   //const [text, onChangeText] = React.useState(task.text);
 
@@ -24,7 +25,7 @@ interface Task {
       onPress={() => toggleCompleted(task.id)}
       />
       
-        <TextInput multiline={true} scrollEnabled={false}  onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{ paddingRight:'2%',fontSize:18, verticalAlign:'middle', flex:10,textDecorationLine: task.completed ? 'line-through' : 'none' }}>
+        <TextInput ref={ref} multiline={true} scrollEnabled={false}  onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{ paddingRight:'2%',fontSize:18, verticalAlign:'middle', flex:10,textDecorationLine: task.completed ? 'line-through' : 'none' }}>
         </TextInput>
       
 
@@ -34,4 +35,6 @@ interface Task {
       
     </View>
   );
-}
+})
+
+export default  toDoItem;
