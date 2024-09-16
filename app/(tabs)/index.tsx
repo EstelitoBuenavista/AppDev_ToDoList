@@ -4,11 +4,11 @@ import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
 import TodoItem from '@/components/ToDoItem';
 import { Appearance, useColorScheme } from 'react-native';
 import { Divider } from 'react-native-elements';
-
+import { CheckBox, Button } from 'react-native-elements';
 
 interface Task {
   id: number;
@@ -25,6 +25,8 @@ export default function HomeScreen() {
   const [show, setShow] = useState<boolean>(true);
   const [newText, setNewText] = useState<string>("");
   const [text, setText] = useState<string>('');
+  const [complete, setComplete] = useState<boolean>(true);
+  const [incomplete, setIncomplete] = useState<boolean>(true);
 
   function addTask(): void {
     const newTask: Task = {
@@ -62,6 +64,14 @@ export default function HomeScreen() {
     setShow(!show)
   };
 
+  function incompleteAll(): void {
+    setTasks(tasks.map((task) => ({ ...task, completed: false })));
+  }
+
+  function completeAll(): void {
+    setTasks(tasks.map((task) => ({ ...task, completed: true })));
+  }
+
   const completedTasks = tasks.filter((task: Task) => task.completed);
   const incompleteTasks = tasks.filter((task: Task) => !task.completed);
 
@@ -76,8 +86,12 @@ export default function HomeScreen() {
             onChangeText={setText}
           />
           <Button title="Add Task" onPress={addTask} /> */}
-      
-          <Text style={{fontSize:18, paddingBottom:8}}>Incomplete Tasks</Text>
+          <View style={{flexDirection:"row"}}>
+            <Text style={{fontSize:18, paddingBottom:8, textAlignVertical:'center'}}>Incomplete Tasks</Text>
+            <View style={{justifyContent: "flex-end"}}>
+              <Button title="Finish" onPress={completeAll}/>
+            </View>
+          </View>
           {incompleteTasks.length > 0 && (
             <>
               {incompleteTasks.map((task: Task) => (
@@ -100,9 +114,14 @@ export default function HomeScreen() {
           {/* {completedTasks.length > 0 && incompleteTasks.length > 0 && (<Divider style={{backgroundColor:"#b8b9ba", marginVertical:"2%"}}></Divider>)} */}
           <View style={{paddingVertical:16}}></View>
 
+          <View style={{flexDirection:"row", marginBottom:10}}>
           <TouchableOpacity onPress={showCompleted}>
-            <Text style={{fontSize: 18}}> {completedTasks.length + " Completed Tasks"}</Text>
+            <Text style={{fontSize: 18, paddingBottom:8, textAlignVertical:'center'}}> {completedTasks.length + " Completed Tasks"}</Text>
           </TouchableOpacity>
+            <View style={{justifyContent: "flex-end"}}>
+              <Button title="Redo" onPress={incompleteAll}/>
+            </View>
+          </View>
 
           {completedTasks.length > 0 && show &&(
                 <>
