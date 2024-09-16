@@ -86,8 +86,12 @@ export default function HomeScreen() {
             onChangeText={setText}
           />
           <Button title="Add Task" onPress={addTask} /> */}
-          <View style={{flexDirection:"row"}}>
+          <Text style={{fontSize:26, paddingBottom:8, textAlignVertical:'center'}}>To Do List</Text>
+
+          <View style={{flexDirection: 'row', alignItems: 'center', marginBottom:10}}>
+          <View style={{flex:1}}>
             <Text style={{fontSize:18, paddingBottom:8, textAlignVertical:'center'}}>Incomplete Tasks</Text>
+          </View>
             <View style={{justifyContent: "flex-end"}}>
               <Button title="Finish" onPress={completeAll}/>
             </View>
@@ -115,9 +119,11 @@ export default function HomeScreen() {
           <View style={{paddingVertical:16}}></View>
 
           <View style={{flexDirection:"row", marginBottom:10}}>
-          <TouchableOpacity onPress={showCompleted}>
-            <Text style={{fontSize: 18, paddingBottom:8, textAlignVertical:'center'}}> {completedTasks.length + " Completed Tasks"}</Text>
-          </TouchableOpacity>
+          <View style={{flex:1}}>
+            <TouchableOpacity onPress={showCompleted}>
+              <Text style={{fontSize: 18, paddingBottom:8, textAlignVertical:'center'}}> {completedTasks.length + " Completed Tasks"}</Text>
+            </TouchableOpacity>
+          </View>
             <View style={{justifyContent: "flex-end"}}>
               <Button title="Redo" onPress={incompleteAll}/>
             </View>
