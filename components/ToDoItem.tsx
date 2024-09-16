@@ -23,9 +23,12 @@ interface Task {
       checked={task.completed}
       onPress={() => toggleCompleted(task.id)}
       />
-      <TextInput multiline={true} onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{fontSize:18,textAlignVertical:'center',flex:10, textDecorationLine: task.completed ? 'line-through' : 'none' }}>
-      </TextInput>
-      <View style={{flex:1}}>
+      
+        <TextInput multiline={true} onChangeText={(newText: string) => editTaskText(task.id, newText)} value={task.text} style={{ paddingRight:'2%',fontSize:18, verticalAlign:'middle', flex:10,textDecorationLine: task.completed ? 'line-through' : 'none' }}>
+        </TextInput>
+      
+
+      <View style={{flex:1, marginLeft: '3%'}}>
         <Button title="X" onPress={() => deleteTask(task.id)} />
       </View>
       
